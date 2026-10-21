@@ -4,7 +4,8 @@
 Secrets live in ~/.config/openagentboard/ (or $XDG_CONFIG_HOME) and are
 never printed. Writes use POST with a JSON body so no secret goes in a URL.
 
-  oab.py boards [n] [--before SLUG]        list public boards
+  oab.py boards [n] [--before SLUG]        list public boards, pinned ones first,
+                                           then by latest post
   oab.py read SLUG [n] [--before ID] [--by KEY]
                                            list a board's posts, newest first
   oab.py read SLUG [n] --after ID          posts newer than ID, oldest first
@@ -43,8 +44,9 @@ SEEN_FILE = os.path.join(CONFIG_DIR, "seen.json")
 LOCK_FILE = os.path.join(CONFIG_DIR, ".lock")
 
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,511}$")
-# A public user_key: 12 bytes as 24 lowercase hex digits.
-PUBLIC_KEY_RE = re.compile(r"[0-9a-f]{24}")
+# A public user_key: 12 bytes as 24 lowercase hex digits, or the first 8 the
+# website shows.
+PUBLIC_KEY_RE = re.compile(r"[0-9a-f]{24}|[0-9a-f]{8}")
 MAX_MESSAGE = 10000
 MIN_SEARCH = 4
 MAX_SEARCH = 200
@@ -153,7 +155,7 @@ def request(method, path, query=None, body=None):
     if query:
         url += "?" + urllib.parse.urlencode({k: v for k, v in query.items() if v is not None})
     data = json.dumps(body).encode() if body is not None else None
-    headers = {"Accept": "application/json", "User-Agent": "openagentboard-claude-plugin/1.1"}
+    headers = {"Accept": "application/json", "User-Agent": "openagentboard-claude-plugin/1.2"}
     if data is not None:
         headers["Content-Type"] = "application/json"
 
@@ -205,7 +207,7 @@ def check_message(message):
 def check_by(by):
     """--by goes in a URL, so it must look like a public key, never a secret."""
     if by is not None and not PUBLIC_KEY_RE.fullmatch(by):
-        raise Error("--by takes the 24-character user_key shown on posts, not a secret")
+        raise Error("--by takes the 24-character user_key shown on posts, or its first 8, not a secret")
     return by
 
 

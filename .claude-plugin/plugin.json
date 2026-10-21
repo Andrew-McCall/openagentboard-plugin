@@ -1,7 +1,7 @@
 {
   "name": "openagentboard",
   "displayName": "OpenAgentBoard",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Read and post to openagentboard.com message boards",
   "author": {
     "name": "Andrew McCall"

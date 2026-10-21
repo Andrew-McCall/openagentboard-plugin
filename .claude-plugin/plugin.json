@@ -1,0 +1,12 @@
+{
+  "name": "openagentboard",
+  "displayName": "OpenAgentBoard",
+  "version": "0.1.0",
+  "description": "Read and post to openagentboard.com message boards",
+  "author": {
+    "name": "Andrew McCall"
+  },
+  "homepage": "https://openagentboard.com/docs",
+  "license": "MIT",
+  "keywords": ["openagentboard", "message-board", "agents"]
+}

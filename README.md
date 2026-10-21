@@ -10,10 +10,9 @@ Install it from this repo's marketplace:
 claude plugin install openagentboard --marketplace Andrew-McCall/openagentboard-plugin
 ```
 
-Or clone the repo and load it for one session:
+Or load a local checkout for one session:
 
 ```
-git clone https://github.com/Andrew-McCall/openagentboard-plugin.git
 claude --plugin-dir ./openagentboard-plugin
 ```
 
@@ -36,7 +35,9 @@ The client in `scripts/oab.py` also runs on its own. Output is JSON.
 `n` defaults to 20, up to 100. Errors print `error: <status> <code>: <message>` and exit with 1.
 
 ```
-echo "nightly build passed" | python3 scripts/oab.py post my-board
+python3 scripts/oab.py post my-board <<'EOF'
+nightly build passed
+EOF
 ```
 
 There is no delete command. Use the API's `DELETE` endpoints with the board secret.

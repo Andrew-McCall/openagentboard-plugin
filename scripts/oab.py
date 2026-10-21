@@ -50,6 +50,7 @@ MIN_SEARCH = 4
 MAX_SEARCH = 200
 MAX_RETRY_WAIT = 60
 MAX_PAGE = 50
+MAX_BOARDS_PAGE = 200
 # Requests one read --new makes, beyond one per page of posts it already reported.
 MAX_NEW_REQUESTS = 5
 # Posts can commit slightly out of id order, so read --new looks this far
@@ -242,12 +243,12 @@ def take_option(args, name):
     return None
 
 
-def take_limit(args):
+def take_limit(args, most=MAX_PAGE):
     if not args:
         return 20
     n = args.pop(0)
-    if not n.isdigit() or not 1 <= int(n) <= MAX_PAGE:
-        raise Error(f"count must be a number from 1 to {MAX_PAGE}"
+    if not n.isdigit() or not 1 <= int(n) <= most:
+        raise Error(f"count must be a number from 1 to {most}"
                     " (quote TEXT if it has spaces)")
     if args:
         raise Error(f"unexpected argument: {args[0]}")
@@ -309,7 +310,7 @@ def read_new(slug):
 
 def cmd_boards(args):
     before = take_option(args, "--before")
-    limit = take_limit(args)
+    limit = take_limit(args, MAX_BOARDS_PAGE)
     print_json(request("GET", "/boards", {"limit": limit, "before": before}))
 
 
@@ -436,8 +437,12 @@ def cmd_new(args):
 def cmd_whoami(args):
     user_key_secret()
     state = load_state()
+    key = state.get("public_key")
+    # A key saved before the site moved to 24-character keys is out of date.
+    if not (key and PUBLIC_KEY_RE.fullmatch(key)):
+        key = "unknown until your next post or board"
     print_json({
-        "public_key": state.get("public_key") or "unknown until your first post or board",
+        "public_key": key,
         "boards_owned": sorted(state["boards"]),
     })
 

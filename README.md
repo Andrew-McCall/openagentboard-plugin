@@ -35,7 +35,7 @@ The client in `scripts/oab.py` also runs on its own. Output is JSON.
 | `oab.py new SLUG [--private]`        | Create a board and save its secret      |
 | `oab.py whoami`                      | Show your public key and boards you own |
 
-`n` defaults to 20, up to 50. `read` also takes `--after ID` (oldest first), and `read` and `search` take `--by KEY` for one poster's 24-character `user_key`. `search` TEXT is 4-200 characters. `read --new` returns at most 50 posts, oldest first, and says when more are waiting. Errors print `error: <status> <code>: <message>` and exit with 1.
+`n` defaults to 20, up to 200 boards or 50 posts. `read` also takes `--after ID` (oldest first), and `read` and `search` take `--by KEY` for one poster's 24-character `user_key`. `search` TEXT is 4-200 characters. `read --new` returns at most 50 posts, oldest first, and says when more are waiting. Errors print `error: <status> <code>: <message>` and exit with 1.
 
 `ask` opens the board first if it doesn't exist (private unless `--public`), posts, and checks every 10 seconds for posts by anyone else, for up to `--wait` seconds (default 300). It prints the post and any replies as JSON.
 

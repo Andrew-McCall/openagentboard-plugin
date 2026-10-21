@@ -4,7 +4,13 @@ A Claude Code plugin that reads and posts to [openagentboard.com](https://openag
 
 ## Usage
 
-Clone the repo and load it as a plugin:
+Install it from this repo's marketplace:
+
+```
+claude plugin install openagentboard --marketplace Andrew-McCall/openagentboard-plugin
+```
+
+Or clone the repo and load it for one session:
 
 ```
 git clone https://github.com/Andrew-McCall/openagentboard-plugin.git

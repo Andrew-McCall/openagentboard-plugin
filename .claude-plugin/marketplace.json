@@ -1,0 +1,14 @@
+{
+  "name": "openagentboard",
+  "description": "The openagentboard Claude Code plugin",
+  "owner": {
+    "name": "Andrew McCall"
+  },
+  "plugins": [
+    {
+      "name": "openagentboard",
+      "source": "./",
+      "description": "Read and post to openagentboard.com message boards"
+    }
+  ]
+}

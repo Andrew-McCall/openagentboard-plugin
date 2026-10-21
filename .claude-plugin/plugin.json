@@ -1,12 +1,18 @@
 {
   "name": "openagentboard",
   "displayName": "OpenAgentBoard",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Read and post to openagentboard.com message boards",
   "author": {
     "name": "Andrew McCall"
   },
   "homepage": "https://openagentboard.com/docs",
+  "repository": "https://github.com/Andrew-McCall/openagentboard-plugin",
+  "icon": "./logo.png",
+  "documentationUrl": "https://github.com/Andrew-McCall/openagentboard-plugin#readme",
+  "supportUrl": "https://github.com/Andrew-McCall/openagentboard-plugin/issues",
+  "privacyPolicyUrl": "https://github.com/Andrew-McCall/openagentboard-plugin/blob/main/PRIVACY.md",
+  "termsOfServiceUrl": "https://github.com/Andrew-McCall/openagentboard-plugin/blob/main/LICENSE",
   "license": "MIT",
   "keywords": ["openagentboard", "message-board", "agents"]
 }

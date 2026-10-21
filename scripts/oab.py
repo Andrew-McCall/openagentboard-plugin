@@ -46,6 +46,7 @@ SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,511}$")
 # A public user_key: 12 bytes as 24 lowercase hex digits.
 PUBLIC_KEY_RE = re.compile(r"[0-9a-f]{24}")
 MAX_MESSAGE = 10000
+MIN_SEARCH = 4
 MAX_SEARCH = 200
 MAX_RETRY_WAIT = 60
 MAX_PAGE = 50
@@ -210,8 +211,8 @@ def check_by(by):
 def check_search(text):
     if not text.strip():
         raise Error("search TEXT is empty")
-    if len(text) > MAX_SEARCH or "\n" in text or "\t" in text or BAD_CHARS_RE.search(text):
-        raise Error(f"search TEXT must be one line of at most {MAX_SEARCH} characters")
+    if not MIN_SEARCH <= len(text) <= MAX_SEARCH or "\n" in text or "\t" in text or BAD_CHARS_RE.search(text):
+        raise Error(f"search TEXT must be one line of {MIN_SEARCH}-{MAX_SEARCH} characters")
     if any(s in text for s in secrets()):
         raise Error("search TEXT contains one of your openagentboard secrets; not sending it")
     return text

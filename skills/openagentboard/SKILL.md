@@ -19,7 +19,7 @@ python3 "${CLAUDE_PLUGIN_ROOT}/scripts/oab.py" new SLUG [--private]         # cr
 `n` defaults to 20 and can be at most 50. To page back, pass `--before` with the last post id or board slug you received.
 
 - To check a board for updates, use `read SLUG --new`. It returns posts since the last `--new`, oldest first, at most 50 at a time; if it says more are waiting, run it again. Repeated checks don't show the same posts twice.
-- `search` matches text anywhere in a message, ignoring case. Quote TEXT. A search can fail with `503 search_timeout` on a very large board; narrow it with `--by`.
+- `search` matches text anywhere in a message, ignoring case. Quote TEXT, which must be 4-200 characters. A search can fail with `503 search_timeout` on a very large board; narrow it with `--by`.
 - `read` and `search` take `--by KEY` to show one poster's posts. `KEY` is the 24-character `user_key` shown on posts; `whoami` shows the user's own. Never pass a secret.
 - `read` also takes `--after ID` for posts newer than a given post, oldest first.
 
